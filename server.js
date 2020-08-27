@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path')
 const http = require('http')
 const socketio = require('socket.io')
+const cors = require('cors')
 const formatMessage = require('./utils/messages')
 const { userJoin, getCurrentUser, getRoomUsers, userLeave } = require('./utils/users')
 
@@ -12,6 +13,7 @@ const io = socketio(server)
 const botName = 'CinemaChat Bot'
 
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(cors('*'))
 
 io.on('connection', (socket) => {
 
@@ -45,7 +47,7 @@ io.on('connection', (socket) => {
     
     if(user) {
       io.to(user.room).emit('message', formatMessage(botName, `${user.username} has left the chat.`))
-      
+
       io.to(user.room).emit('roomUsers', {
         room: user.room,
         users: getRoomUsers(user.room)
