@@ -1,10 +1,12 @@
-const moment = require('moment')
+// const moment = require('moment')
+const mtz = require('moment-timezone')
 
 function formatMessage(username, text) {
+  const userTimeZone = mtz.tz.guess()
   return {
     username,
     text,
-    time: moment().format('h:mm a')
+    time: mtz.tz(userTimeZone).format('h:mm a')
   }
 }
 
