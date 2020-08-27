@@ -2,7 +2,7 @@
 const mtz = require('moment-timezone')
 
 function formatMessage(username, text) {
-  const userTimeZone = mtz.tz.guess()
+  const userTimeZone = 'America/Bogota'
   return {
     username,
     text,
